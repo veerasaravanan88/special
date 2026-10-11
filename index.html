@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Special Person ❤️</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Music Player -->
+    <div class="music-controls" id="musicControls">
+        <button id="musicToggle" aria-label="Toggle background music">
+            <span id="musicIcon">🎵</span> Play Music
+        </button>
+        <!-- EDIT: Add your music file path here. E.g., assets/music.mp3 -->
+        <audio id="bgMusic" loop>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="main-heading">Happy Birthday, Maddy<br><span class="highlight-name" id="personName">My Special Person</span> ❤️</h1>
+            <p class="subtitle" id="typewriterSubtitle"></p>
+            <div class="hero-cake" aria-label="Birthday cake emoji">🎂</div>
+            <button class="premium-btn" id="openSurpriseBtn">Open Your Surprise ✨</button>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow-down"></div>
+        </div>
+    </section>
+
+    <!-- Surprise Modal -->
+    <div class="surprise-modal" id="surpriseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+            <div class="gift-box" id="giftBox" aria-label="Click to open gift box" role="button" tabindex="0">
+                <div class="gift-lid"></div>
+                <div class="gift-body"></div>
+            </div>
+            <div class="modal-message hidden" id="modalMessage">
+                <h2 class="cursive-text" id="modalTitle">A Special Surprise Just For You!</h2>
+                <p id="typedModalMessage"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Countdown Section -->
+    <section class="countdown-section" id="countdownSection">
+        <h2 class="section-title cursive-text">Counting the Moments...</h2>
+        <div id="countdownContainer" class="countdown-container">
+            <div class="time-box">
+                <span id="days">00</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <span class="time-label">Minutes</span>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+        <div id="birthdayMessage" class="hidden">
+            <h2 class="cursive-text highlight-today">Today Is Your Special Day! 🎉</h2>
+        </div>
+    </section>
+
+    <!-- Memories Gallery -->
+    <section class="memories-section" id="memories">
+        <h2 class="section-title cursive-text">Our Beautiful Memories</h2>
+        <div class="gallery-grid">
+      
+            <!-- Rendered by JS dynamically -->
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+        <span class="close-lightbox" onclick="closeLightbox()" aria-label="Close gallery">&times;</span>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged memory image">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+        <a class="prev" onclick="changeLightbox(-1)" aria-label="Previous image">&#10094;</a>
+        <a class="next" onclick="changeLightbox(1)" aria-label="Next image">&#10095;</a>
+    </div>
+
+    <!-- Wish Balloons Section -->
+    <section class="balloons-section" id="balloonsSection">
+        <h2 class="section-title cursive-text">Pop a Balloon for a Wish! 🎈</h2>
+        <p class="instruction">Tap each balloon to pop it and reveal a secret wish!</p>
+        <div class="balloons-container" id="balloonsContainer">
+            <div class="balloon-card" data-index="0">
+                <div class="balloon-wrapper">
+                    <div class="balloon pink"><span class="balloon-shine"></span></div>
+                    <div class="balloon-knot"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="wish-reveal hidden">
+                    <span class="wish-emoji">🌸</span>
+                    <p class="wish-text">May your year be filled with boundless joy, sweet smiles, and pure happiness!</p>
+                </div>
+            </div>
+            <div class="balloon-card" data-index="1">
+                <div class="balloon-wrapper">
+                    <div class="balloon gold"><span class="balloon-shine"></span></div>
+                    <div class="balloon-knot"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="wish-reveal hidden">
+                    <span class="wish-emoji">⭐</span>
+                    <p class="wish-text">Here is to unstoppable success, shining bright like the star you are!</p>
+                </div>
+            </div>
+            <div class="balloon-card" data-index="2">
+                <div class="balloon-wrapper">
+                    <div class="balloon purple"><span class="balloon-shine"></span></div>
+                    <div class="balloon-knot"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="wish-reveal hidden">
+                    <span class="wish-emoji">💖</span>
+                    <p class="wish-text">May all your biggest dreams and quietest wishes come true this year!</p>
+                </div>
+            </div>
+            <div class="balloon-card" data-index="3">
+                <div class="balloon-wrapper">
+                    <div class="balloon red"><span class="balloon-shine"></span></div>
+                    <div class="balloon-knot"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="wish-reveal hidden">
+                    <span class="wish-emoji">❤️</span>
+                    <p class="wish-text">Thank you for making life so much more beautiful just by being in it!</p>
+                </div>
+            </div>
+            <div class="balloon-card" data-index="4">
+                <div class="balloon-wrapper">
+                    <div class="balloon cyan"><span class="balloon-shine"></span></div>
+                    <div class="balloon-knot"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="wish-reveal hidden">
+                    <span class="wish-emoji">🥂</span>
+                    <p class="wish-text">Cheers to exciting adventures, unforgettable laughs, and good health!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heartfelt Message -->
+    <section class="letter-section" id="letter">
+        <div class="envelope" id="envelope" title="Click to open or close the letter">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" id="waxSeal">💌</div>
+            <div class="envelope-body">
+                <div class="letter-paper">
+                    <h2 class="cursive-text">My Dearest...</h2>
+                    <p class="message-text" id="heartfeltMessageText"></p>
+                    <div class="heart-icon">❤️</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Cake -->
+    <section class="cake-section" id="cakeSection">
+        <h2 class="section-title cursive-text">Make a Wish! 🎂</h2>
+        <div class="cake-container">
+            <div class="interactive-cake">
+                <div class="candle" id="candle1" aria-label="Candle 1" role="button" tabindex="0">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle" id="candle2" aria-label="Candle 2" role="button" tabindex="0">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle" id="candle3" aria-label="Candle 3" role="button" tabindex="0">
+                    <div class="flame"></div>
+                </div>
+                <div class="cake-tier top"></div>
+                <div class="cake-tier bottom"></div>
+            </div>
+        </div>
+        <p class="instruction">Tap the candles to blow them out</p>
+        <div id="wishMessage" class="hidden">
+            <h3 class="cursive-text wish-granted">May all your wishes come true! ✨</h3>
+        </div>
+    </section>
+
+    <!-- Final Surprise -->
+    <section class="final-section" id="final">
+        <div class="glow-orb"></div>
+        <h2 class="final-heading cursive-text">You Make Life More Beautiful ❤️</h2>
+        <button class="premium-btn" id="finalSurpriseBtn">One Last Surprise</button>
+        <div class="final-message hidden" id="finalMessage">
+            <!-- EDIT: Your final message text is set in JS configuration or here -->
+            <p id="finalSurpriseText">Thank you for being you. Here's to many more beautiful years together! 🥂</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with ❤️ just for you.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
